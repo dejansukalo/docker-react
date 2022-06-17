@@ -2,10 +2,13 @@ pipeline {
     agent {
         dockerfile true
     }
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dejansukalo-dockerhub')
+    }
     stages {
-        stage ('Test'){
+        stage ('Build'){
             steps {
-                echo 'Testiranje'
+                sh 'docker build -t dejansukalo/myreactapp:latest .'
             }
         }
     }
