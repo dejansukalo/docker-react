@@ -20,11 +20,9 @@ pipeline {
             }
         }
         stage('Run container on Dev server') {
-            steps{
-                def dockerRun = 'docker run -p 8080:8080 -d --name my-app dejansukalo/myreactapp:latest'
-                sshagent(['dev-server']) {
-                    sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.67.224.128 ${dockerRun}'
-                }
+            def dockerRun = 'docker run -p 8080:8080 -d --name my-app dejansukalo/myreactapp:latest'
+            sshagent(['dev-server']) {
+                sh 'ssh -o StrictHostKeyChecking=no ec2-user@3.67.224.128 ${dockerRun}'
             }
         }
     }
